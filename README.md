@@ -1,6 +1,6 @@
 # Prettier Eslint Standard Webpack Plugin
 
-Webpack plugin for [prettier-eslint](http://example.net/) which ESLint's settings is set to [JavaScript Standard Style](http://standardjs.com/)
+Webpack plugin for [prettier-eslint](https://github.com/kentcdodds/prettier-eslint) which ESLint's settings is set to [JavaScript Standard Style](http://standardjs.com/)
 
 ## Install
 ```
@@ -10,7 +10,7 @@ yarn add prettier-eslint-webpack-plugin
 ### Usage
 
 
-| *key*      | type           | *description*                                | *default*                                                                  |
+| *key*      | *type*           | *description*                                | *default*                                                                  |
 |------------|----------------|----------------------------------------------|----------------------------------------------------------------------------|
 | encoding   | String         | Encoding to use when reading / writing files | 'utf-8'                                                                    |
 | extensions | Array          | Only process these file extensions           | ['.js', '.jsx']                                                            |
