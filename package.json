@@ -1,0 +1,21 @@
+{
+  "name": "prettier-eslint-webpack-plugin",
+  "version": "0.0.1",
+  "description": "Webpack plugin that formats your JavaScript using prettier followed by eslint --fix",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniël Terwiel",
+  "license": "MIT",
+  "dependencies": {
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.2",
+    "eslint-plugin-standard": "^2.0.1",
+    "prettier-eslint": "^3.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/danielterwiel/prettier-eslint-webpack-plugin"
+  }
+}
