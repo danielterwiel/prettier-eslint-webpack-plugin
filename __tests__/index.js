@@ -1,64 +1,6 @@
 import path from 'path'
 import * as PluginFile from './../'
 
-test('passes parameters', () => {
-  const formatMock = jest.fn()
-  // const plugin = PluginFile.PrettierEslintPlugin({
-  //   encoding: 'utf-16',
-  //   extensions: ['.coffee', '.ts'],
-  //   // Prettier ESlint API
-  //   filePath: '/file/path/',
-  //   eslintConfig: {
-  //     parserOptions: {
-  //       ecmaVersion: 7
-  //     },
-  //     rules: {
-  //       semi: ['error', 'never']
-  //     }
-  //   },
-  //   prettierOptions: {
-  //     bracketSpacing: true,
-  //   },
-  //   logLevel: 'trace',
-  //   eslintPath: '/eslint/path/',
-  //   prettierPath: '/prettier/path/'
-  // })
-
-  PluginFile.processFilePath({
-    filePath: '/file/path/',
-    eslintConfig: {
-      parserOptions: {
-        ecmaVersion: 7
-      },
-      rules: {
-        semi: ['error', 'never']
-      }
-    },
-    prettierOptions: {
-      bracketSpacing: true,
-    },
-    logLevel: 'trace',
-    eslintPath: '/eslint/path/'
-  }).then(data => {
-    expect(formatMock).toHaveBeenCalledWith({
-      filePath: '/file/path/',
-      eslintConfig: {
-        parserOptions: {
-          ecmaVersion: 7
-        },
-        rules: {
-          semi: ['error', 'never']
-        }
-      },
-      prettierOptions: {
-        bracketSpacing: true,
-      },
-      logLevel: 'trace',
-      eslintPath: '/eslint/path/'
-    })
-  })
-})
-
 describe('PrettierEslintPlugin', () => {
   const plugin = new PluginFile.PrettierEslintPlugin({
     encoding: 'utf-16',
