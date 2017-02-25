@@ -2,9 +2,9 @@
 
 Webpack 2.* plugin for [prettier-eslint](https://github.com/kentcdodds/prettier-eslint)
 
-## Install
+## Installation
 ```
-yarn add prettier-eslint-webpack-plugin
+yarn add prettier-eslint-webpack-plugin --dev
 ```
 
 ### Usage
