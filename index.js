@@ -16,7 +16,7 @@ function processFilePath({ file, encoding, filePath, eslintConfig, prettierOptio
         }
         const formatted = format(fmtOptions)
         if (formatted !== source) {
-          fsWriteFile(filepath, { encoding: encoding })
+          fsWriteFile(file, formatted, { encoding: encoding })
             .catch(err => reject(err.message))
             .then(() => { resolve('success!') })
         }

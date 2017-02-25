@@ -59,6 +59,11 @@ module.exports = {
 ## Pull requests
 Welcome
 
+## Roadmap
+* More tests
+* Possibility to use a pre-enforced webpack 2 loader to prevent multiple builds
+* Add Flow support
+
 ### Inspiration
 * [prettier-eslint](https://github.com/kentcdodds/prettier-eslint)
 * [prettier-webpack-plugin](https://github.com/hawkins/prettier-webpack-plugin)
