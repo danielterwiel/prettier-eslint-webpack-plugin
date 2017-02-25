@@ -1,6 +1,6 @@
 # Prettier Eslint Webpack Plugin
 
-Webpack plugin for [prettier-eslint](https://github.com/kentcdodds/prettier-eslint) which ESLint's settings is set to [JavaScript Standard Style](http://standardjs.com/)
+Webpack 2.* plugin for [prettier-eslint](https://github.com/kentcdodds/prettier-eslint) which ESLint's settings is set to [JavaScript Standard Style](http://standardjs.com/)
 
 ## Install
 ```
@@ -12,8 +12,10 @@ yarn add prettier-eslint-webpack-plugin
 
 | *key*      | *type*          | *description*                                | *default*       |
 |------------|-----------------|----------------------------------------------|-----------------|
-| encoding   | ?String         | Encoding to use when reading / writing files | 'utf-8'         |
-| extensions | ?Array          | Only process these file extensions           | ['.js', '.jsx'] |
+| encoding   | string          | Encoding to use when reading / writing files | 'utf-8'         |
+| extensions | array           | Only process these file extensions           | ['.js', '.jsx'] |
+
+Furthermore the entire [prettier-eslint](https://github.com/kentcdodds/prettier-eslint#options) API is exposed in the exact same way.
 
 ### Example
 
@@ -34,7 +36,11 @@ module.exports = {
     new PrettierEslintPlugin({
       encoding: 'utf-16',
       extensions: '.jsf00',
-      eslintConfig: eslintConfig
+      eslintConfig: eslintConfig,
+      logLevel: 'trace',
+      prettierOptions: {
+        singleQuote: false,
+      }
     })
     ...
   }
@@ -46,8 +52,7 @@ module.exports = {
 Welcome
 
 ## Roadmap:
-* Tests
-* Add support for Flow
+* Add Flow type support
 
 ### Inspiration
 * [prettier-eslint](https://github.com/kentcdodds/prettier-eslint)
