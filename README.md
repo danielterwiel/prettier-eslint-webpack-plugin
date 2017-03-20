@@ -51,7 +51,7 @@ By default, prettier-eslint will try to find the relevant eslint (and prettier) 
 Your `webpack.dev.js` file:
 
 ```javascript
-import PrettierEslintPlugin from 'prettier-eslint-webpack-plugin'
+import { PrettierEslintPlugin } from 'prettier-eslint-webpack-plugin'
 import fs from 'fs'
 
 ...
