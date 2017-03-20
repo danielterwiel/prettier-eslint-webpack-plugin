@@ -1,8 +1,8 @@
-import eslintStandardConfig from 'eslint-config-standard'
-import format from 'prettier-eslint'
-import fsReadFile from 'fs-readfile-promise'
-import fsWriteFile from 'fs-writefile-promise/lib/node7'
-import path from 'path'
+var eslintStandardConfig = require('eslint-config-standard')
+var format = require('prettier-eslint')
+var fsReadFile = require('fs-readfile-promise')
+var fsWriteFile = require('fs-writefile-promise/lib/node7')
+var path = require('path')
 
 function processFilePath({ file, encoding, filePath, eslintConfig, prettierOptions, logLevel, eslintPath, prettierPath }) {
   return new Promise((resolve, reject) => {
