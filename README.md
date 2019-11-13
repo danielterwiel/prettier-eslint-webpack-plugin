@@ -2,6 +2,10 @@
 
 Webpack 2.* plugin for [prettier-eslint](https://github.com/kentcdodds/prettier-eslint)
 
+## DEPRECATED
+
+Nothing to see here anymore :)
+
 ## Installation
 ```
 yarn add prettier-eslint-webpack-plugin --dev
@@ -76,14 +80,6 @@ module.exports = {
   ...
 }
 ```
-
-## Pull requests
-Welcome
-
-## Roadmap
-* More tests
-* Possibility to use a pre-enforced webpack 2 loader to prevent multiple builds
-* Add Flow support
 
 ### Inspiration
 * [prettier-eslint](https://github.com/kentcdodds/prettier-eslint)
