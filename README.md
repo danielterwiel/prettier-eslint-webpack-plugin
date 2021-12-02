@@ -1,10 +1,10 @@
 # Prettier Eslint Webpack Plugin
 
-Webpack 2.* plugin for [prettier-eslint](https://github.com/kentcdodds/prettier-eslint)
+Webpack 5 plugin for [prettier-eslint](https://github.com/kentcdodds/prettier-eslint)
 
 ## DEPRECATED
 
-Nothing to see here anymore :)
+Nothing to see here anymore :) ... --> try to update ;)
 
 ## Installation
 ```

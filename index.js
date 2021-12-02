@@ -1,35 +1,68 @@
-var eslintStandardConfig = require('eslint-config-standard')
+const prettier = require("prettier");
 var format = require('prettier-eslint')
-var fsReadFile = require('fs-readfile-promise')
-var fsWriteFile = require('fs-writefile-promise/lib/node7')
+const fs = require("fs");
 var path = require('path')
 
-function processFilePath({ file, encoding, filePath, eslintConfig, prettierOptions, logLevel, eslintPath, prettierPath }) {
+const PRETTIER_ESLINT_PLUGIN = 'PrettierEslintPlugin';
+const DEFAULT_ENCODING = "utf-8";
+const DEFAULT_EXTENSIONS = prettier.getSupportInfo
+  ? prettier
+      .getSupportInfo()
+      .languages.map(l => l.extensions)
+      .reduce((accumulator, currentValue) => accumulator.concat(currentValue))
+  : [
+      ".css",
+      ".graphql",
+      ".js",
+      ".json",
+      ".jsx",
+      ".less",
+      ".sass",
+      ".scss",
+      ".ts",
+      ".tsx",
+      ".vue",
+      ".yaml",
+    ];
+
+function processFilePath({ fileCurrent, encoding, filePath, eslintConfig, prettierOptions, logLevel, eslintPath, prettierPath }) {
   return new Promise((resolve, reject) => {
-    fsReadFile(file, { encoding: encoding })
-      .then(buffer => buffer.toString())
-      .catch(err => { reject(err.message) })
-      .then(source => {
+    fs.readFile(fileCurrent, encoding, (err, source) => {
+      if (err) {
+          return reject(err);
+      }
+      
+      try{
         const fmtOptions = {
           text: source,
           filePath, eslintConfig, prettierOptions, logLevel, eslintPath, prettierPath
         }
+
         const formatted = format(fmtOptions)
+
         if (formatted !== source) {
-          fsWriteFile(file, formatted, { encoding: encoding })
-            .catch(err => reject(err.message))
-            .then(() => { resolve('success!') })
+          fs.writeFile(fileCurrent, prettierSource, this.encoding, err => {
+            if (err) {
+              return reject(err);
+            }
+            resolve('success!');
+          });
+        } else {
+          resolve('success!');
         }
-      })
-      .catch(err => { reject(err.message) })
+      }
+      catch(err){
+        return reject(err);
+      }
+    });
   })
 }
 
 class PrettierEslintPlugin {
   constructor (
     {
-      encoding = 'utf-8',
-      extensions = ['.js', '.jsx'],
+      encoding = DEFAULT_ENCODING,
+      extensions = DEFAULT_EXTENSIONS,
       // prettier-eslint API
       filePath, eslintConfig, prettierOptions, logLevel, eslintPath,
       prettierPath, sillyLogs, config
@@ -49,38 +82,36 @@ class PrettierEslintPlugin {
   }
 
   apply (compiler) {
-    compiler.plugin('emit', (compilation, callback) => {
-      // Explore each chunk (build output):
-      compilation.chunks.forEach(chunk => {
-        // Explore each module within the chunk (built inputs):
-        chunk.modules.forEach(module => {
-          if (!module.fileDependencies) return
-          // Explore each source file path that was included into the module
-          module.fileDependencies.forEach(file => {
-            // match extensions and exclude node modules
-            if (
-              this.extensions.indexOf(path.extname(file)) !== -1 &&
-              file.indexOf('node_modules') === -1
-            ) {
-              processFilePath({
-                file: file,
-                encoding: this.encoding,
+    compiler.hooks.emit.tapAsync(PRETTIER_ESLINT_PLUGIN, (compilation, callback) => {
+      const promises = [];
+      if (!compilation.fileDependencies) return;
+      compilation.fileDependencies.forEach(fileCurrent=> {
+        if (this.extensions.indexOf(path.extname(fileCurrent)) === -1 && 
+        fileCurrent.indexOf('node_modules') === -1 ) {
+          return;
+        }
 
-                filePath : this.filePath,
-                eslintConfig : this.eslintConfig,
-                prettierOptions : this.prettierOptions,
-                logLevel : this.logLevel,
-                eslintPath : this.eslintPath,
-                prettierPath : this.prettierPath,
-              })
-              .then(() => { console.log('succeed') })
-              .catch(err => { console.error(err) })
-            }
+        promises.push(
+          processFilePath({
+            fileCurrent: fileCurrent,
+            encoding: this.encoding,
+
+            filePath : this.filePath,
+            eslintConfig : this.eslintConfig,
+            prettierOptions : this.prettierOptions,
+            logLevel : this.logLevel,
+            eslintPath : this.eslintPath,
+            prettierPath : this.prettierPath,
           })
-        })
-      })
-      callback()
-    })
+        );
+      });
+  
+      Promise.all(promises).then(() => {
+        callback();
+      }).catch(err => {
+        callback(err);
+      });
+    });
   }
 }
 

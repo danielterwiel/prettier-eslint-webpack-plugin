@@ -9,6 +9,7 @@
   "author": "Daniël Terwiel",
   "license": "MIT",
   "dependencies": {
+    "core-js": "^3.15.2",
     "eslint-config-standard": "^7.1.0",
     "fs-readfile-promise": "^3.0.0",
     "fs-writefile-promise": "^2.0.0",
